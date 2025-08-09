@@ -40,6 +40,9 @@ jobs:
               id: terraform_init
               run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
 
+            - name: Terraform Destroy
+              run: terraform destroy -auto-approve -input=false -parallelism=1
+
             - name: Terraform format
               id: terraform_fmt
               run: terraform fmt -check
@@ -72,7 +75,7 @@ jobs:
             - name: eks update kubeconfig
               id: kubeconfig
               if: steps.terraform_apply.outcome == 'success'
-              run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+              run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
 
             - name: ingress controller
               if: steps.terraform_apply.outcome == 'success' && steps.kubeconfig.outcome == 'success'
