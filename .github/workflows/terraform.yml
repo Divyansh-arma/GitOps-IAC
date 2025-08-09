@@ -77,3 +77,5 @@ jobs:
             - name: ingress controller
               if: steps.terraform_apply.outcome == 'success' && steps.kubeconfig.outcome == 'success'
               run: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/deploy.yaml
+
+              ##
