@@ -75,7 +75,7 @@ jobs:
             - name: eks update kubeconfig
               id: kubeconfig
               if: steps.terraform_apply.outcome == 'success'
-              run: aws eks update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }}
+              run: aws eks update-kubeconfig --name GitOps-Cluster --region ${{ env.AWS_REGION }}
 
             - name: ingress controller
               if: steps.terraform_apply.outcome == 'success' && steps.kubeconfig.outcome == 'success'
