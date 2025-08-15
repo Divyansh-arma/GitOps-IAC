@@ -36,6 +36,10 @@ jobs:
               with:
                 terraform_version: '1.9.2'
 
+            - name: Terraform Init
+              id: terraform_init
+              run: terraform init -backend-config="bucket=$BUCKET_TF_STATE"
+
             - name: Terraform format
               id: terraform_fmt
               run: terraform fmt -check
